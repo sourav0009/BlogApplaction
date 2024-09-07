@@ -2,13 +2,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@/public/logo__1.webp";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { PlaceholdersAndVanishInput } from './ui/placeholders-and-vanish-input';
 import MobileMenu from "./ui/mobilemenu";
 
 const Navbar = () => {
     const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
     const [showMobileSearch, setShowMobileSearch] = useState<boolean>(false);
+    const searchRef = useRef<HTMLDivElement>(null);
 
     const toggleMenu = useCallback(() => {
         setShowMobileMenu(!showMobileMenu);
@@ -29,10 +30,36 @@ const Navbar = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log(e.target.value);
     };
+
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log("submitted");
     };
+
+    const handleMenuLinkClick = () => {
+        // Close mobile menu only if the screen width is mobile size
+        if (window.innerWidth <= 768) {
+            setShowMobileMenu(false);
+        }
+    };
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+                setShowMobileSearch(false);
+            }
+        };
+
+        if (showMobileSearch) {
+            document.addEventListener("mousedown", handleClickOutside);
+        } else {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [showMobileSearch]);
 
     return (
         <>
@@ -74,7 +101,7 @@ const Navbar = () => {
 
                         {/* Mobile search bar visibility */}
                         {showMobileSearch && (
-                            <div className="absolute top-16 left-0 w-full dark:bg-gray-800 p-4 shadow-md">
+                            <div ref={searchRef} className="absolute top-16 left-0 w-full dark:bg-gray-800 p-4 shadow-md">
                                 <input
                                     type="text"
                                     id="mobile-search-navbar"
@@ -134,19 +161,19 @@ const Navbar = () => {
 
                     <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-search">
                         <ul className="text-white flex flex-row space-x-10">
-                            <Link href={"/"}>
+                            <Link href={"/"} onClick={handleMenuLinkClick}>
                                 <li className="hover:text-blue-500 cursor-pointer duration-300 transition-all ease-in-out">Home</li>
                             </Link>
-                            <Link href={"/blogs"}>
+                            <Link href={"/blogs"} onClick={handleMenuLinkClick}>
                                 <li className="hover:text-blue-500 cursor-pointer duration-300 transition-all ease-in-out">Blogs</li>
                             </Link>
-                            <Link href={"/dashboard"}>
+                            <Link href={"/dashboard"} onClick={handleMenuLinkClick}>
                                 <li className="hover:text-blue-500 cursor-pointer duration-300 transition-all ease-in-out">Dashboard</li>
                             </Link>
-                            <Link href={"/about"}>
+                            <Link href={"/about"} onClick={handleMenuLinkClick}>
                                 <li className="hover:text-blue-500 cursor-pointer duration-300 transition-all ease-in-out">About</li>
                             </Link>
-                            <Link href={"/contact"}>
+                            <Link href={"/contact"} onClick={handleMenuLinkClick}>
                                 <li className="hover:text-blue-500 cursor-pointer duration-300 transition-all ease-in-out">Contact</li>
                             </Link>
                         </ul>
