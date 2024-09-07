@@ -63,9 +63,9 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="z-50 border-gray-200 bg-inherit fixed top-0 w-full">
-                <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                    <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
+            <nav className="z-50 md:px-20 border-gray-200 bg-inherit fixed top-0 w-full ">
+                <div className="max-w-screen  flex flex-wrap items-center justify-between mx-auto p-4">
+                    <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse ">
                         <Image className="rounded-full" height={50} width={50} src={logo} alt="logo" />
                         <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
                             BLOG COMMUNITY
@@ -160,7 +160,7 @@ const Navbar = () => {
                     </div>
 
                     <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-search">
-                        <ul className="text-white flex flex-row space-x-10">
+                        <ul className="text-white flex flex-row space-x-10 text-lg">
                             <Link href={"/"} onClick={handleMenuLinkClick}>
                                 <li className="hover:text-blue-500 cursor-pointer duration-300 transition-all ease-in-out">Home</li>
                             </Link>
