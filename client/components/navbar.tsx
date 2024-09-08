@@ -9,7 +9,10 @@ import MobileMenu from "./ui/mobilemenu";
 const Navbar = () => {
     const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
     const [showMobileSearch, setShowMobileSearch] = useState<boolean>(false);
+    const [showBlogsDropdown, setShowBlogsDropdown] = useState<boolean>(false);
+
     const searchRef = useRef<HTMLDivElement>(null);
+    const dropdownRef = useRef<HTMLUListElement>(null); // Ref for blogs dropdown
 
     const toggleMenu = useCallback(() => {
         setShowMobileMenu(!showMobileMenu);
@@ -43,28 +46,44 @@ const Navbar = () => {
         }
     };
 
+    const handleBlogsDropdown = () => {
+        setShowBlogsDropdown(!showBlogsDropdown);
+    };
+
+    const handleDropdownLinkClick = () => {
+        // Close the dropdown when a link is clicked
+        setShowBlogsDropdown(false);
+    };
+
+    // Detect clicks outside the dropdown and close the dropdown
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
+            // Check if click is outside the dropdown or the dropdown button
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target as Node) &&
+                !(event.target as HTMLElement).closest('button')
+            ) {
+                setShowBlogsDropdown(false);
+            }
             if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
                 setShowMobileSearch(false);
             }
         };
 
-        if (showMobileSearch) {
-            document.addEventListener("mousedown", handleClickOutside);
-        } else {
-            document.removeEventListener("mousedown", handleClickOutside);
-        }
+        // Add event listener for clicks outside
+        document.addEventListener("mousedown", handleClickOutside);
 
         return () => {
+            // Cleanup event listener when component is unmounted
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [showMobileSearch]);
+    }, [dropdownRef, searchRef]);
 
     return (
         <>
             <nav className="z-50 md:px-20 border-gray-200 bg-inherit fixed top-0 w-full ">
-                <div className="max-w-screen  flex flex-wrap items-center justify-between mx-auto p-4">
+                <div className="max-w-screen flex flex-wrap items-center justify-between mx-auto p-4">
                     <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse ">
                         <Image className="rounded-full" height={50} width={50} src={logo} alt="logo" />
                         <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
@@ -164,9 +183,28 @@ const Navbar = () => {
                             <Link href={"/"} onClick={handleMenuLinkClick}>
                                 <li className="hover:text-blue-500 cursor-pointer duration-300 transition-all ease-in-out">Home</li>
                             </Link>
-                            <Link href={"/blogs"} onClick={handleMenuLinkClick}>
-                                <li className="hover:text-blue-500 cursor-pointer duration-300 transition-all ease-in-out">Blogs</li>
-                            </Link>
+                            {/* Dropdown Blogs section */}
+                            <li className="relative">
+                                <button
+                                    onClick={handleBlogsDropdown}
+                                    className="hover:text-blue-500 cursor-pointer duration-300 transition-all ease-in-out"
+                                >
+                                    Blogs
+                                </button>
+                                {showBlogsDropdown && (
+                                    <ul ref={dropdownRef} className="absolute top-full mt-2 left-0 bg-white shadow-lg rounded-lg py-1 text-gray-800 ">
+                                        <Link href={"/blogs/stocks"} onClick={handleDropdownLinkClick}>
+                                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Stocks</li>
+                                        </Link>
+                                        <Link href={"/blogs/sports"} onClick={handleDropdownLinkClick}>
+                                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Sports</li>
+                                        </Link>
+                                        <Link href={"/blogs/other-news"} onClick={handleDropdownLinkClick}>
+                                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Other News</li>
+                                        </Link>
+                                    </ul>
+                                )}
+                            </li>
                             <Link href={"/dashboard"} onClick={handleMenuLinkClick}>
                                 <li className="hover:text-blue-500 cursor-pointer duration-300 transition-all ease-in-out">Dashboard</li>
                             </Link>
