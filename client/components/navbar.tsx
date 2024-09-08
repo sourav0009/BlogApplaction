@@ -12,7 +12,7 @@ const Navbar = () => {
     const [showBlogsDropdown, setShowBlogsDropdown] = useState<boolean>(false);
 
     const searchRef = useRef<HTMLDivElement>(null);
-    const dropdownRef = useRef<HTMLUListElement>(null); // Ref for blogs dropdown
+    const dropdownRef = useRef<HTMLUListElement>(null);
 
     const toggleMenu = useCallback(() => {
         setShowMobileMenu(!showMobileMenu);
@@ -40,7 +40,6 @@ const Navbar = () => {
     };
 
     const handleMenuLinkClick = () => {
-        // Close mobile menu only if the screen width is mobile size
         if (window.innerWidth <= 768) {
             setShowMobileMenu(false);
         }
@@ -192,15 +191,15 @@ const Navbar = () => {
                                     Blogs
                                 </button>
                                 {showBlogsDropdown && (
-                                    <ul ref={dropdownRef} className="absolute top-full mt-2 left-0 bg-white shadow-lg rounded-lg py-1 text-gray-800 ">
+                                    <ul ref={dropdownRef} className="absolute left-0 mt-2 w-36 bg-black text-white rounded-lg shadow-lg group-hover:block">
                                         <Link href={"/blogs/stocks"} onClick={handleDropdownLinkClick}>
-                                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Stocks</li>
+                                            <li className="px-4 py-2 hover:bg-gray-800 hover:rounded-lg cursor-pointer">Stocks</li>
                                         </Link>
                                         <Link href={"/blogs/sports"} onClick={handleDropdownLinkClick}>
-                                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Sports</li>
+                                            <li className="px-4 py-2 hover:bg-gray-800 cursor-pointer">Sports</li>
                                         </Link>
                                         <Link href={"/blogs/other-news"} onClick={handleDropdownLinkClick}>
-                                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Other News</li>
+                                            <li className="px-4 py-2 hover:bg-gray-800 hover:rounded-lg cursor-pointer">Other News</li>
                                         </Link>
                                     </ul>
                                 )}
