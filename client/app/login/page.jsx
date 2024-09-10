@@ -2,6 +2,9 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import Image from "next/image";
+import image2 from "@/public/image_3.webp";
+
 
 
 export default function Login() {
@@ -292,11 +295,7 @@ export default function Login() {
             </form>
           </div>
           <div className="md:h-full max-md:mt-10 bg-[#000842] rounded-xl lg:p-12 p-8">
-            <img
-              src="https://readymadeui.com/signin-image.webp"
-              className="w-full h-full object-contain"
-              alt="login-image"
-            />
+             <Image className="lg:max-w-[90%] w-full h-full object-contain block mx-auto" height={400} width={400} src={image2} alt="logo" />
           </div>
         </div>
       </div>

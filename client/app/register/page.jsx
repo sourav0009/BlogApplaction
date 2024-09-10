@@ -1,7 +1,10 @@
 "use client";
+import Image from "next/image";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import image1 from "@/public/image_2.webp";
+
 
 export default function Register() {
   const [username, setuserName] = useState("");
@@ -80,11 +83,7 @@ export default function Register() {
     <div className="font-[sans-serif] bg-white text-white md:h-screen">
       <div className="grid md:grid-cols-2 items-center gap-8 h-full">
         <div className="max-md:order-1 p-4">
-          <img
-            src="https://readymadeui.com/signin-image.webp"
-            className="lg:max-w-[90%] w-full h-full object-contain block mx-auto"
-            alt="login-image"
-          />
+          <Image className="lg:max-w-[90%] w-full h-full object-contain block mx-auto" height={400} width={400} src={image1} alt="logo" />
         </div>
         <div className="flex items-center md:p-8 p-6 bg-[#0C172C] h-full lg:w-11/12 lg:ml-auto">
           <form className="max-w-lg w-full mx-auto">
@@ -97,7 +96,7 @@ export default function Register() {
               <label className="text-xs block mb-2">Full Name</label>
               <div className="relative flex items-center">
                 <input
-                  name="name"
+                  name="name" 
                   type="text"
                   required
                   className="w-full bg-transparent text-sm border-b border-gray-300 focus:border-yellow-400 px-2 py-3 outline-none"

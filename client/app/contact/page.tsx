@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 const ContactSection = () => {
 
   const [name, setName] = useState('');
@@ -49,6 +50,7 @@ const ContactSection = () => {
   };
 
   return (
+    <>
     <section className=" dark:bg-slate-800" id="contact">
       <ToastContainer />
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
@@ -85,8 +87,8 @@ const ContactSection = () => {
                   <div className="ml-4 mb-4">
                     <h3 className="mb-2 text-lg font-medium leading-6 text-white dark:text-white">Our Address
                     </h3>
-                    <p className="text-white dark:text-slate-400">1230 Maecenas Street Donec Road</p>
-                    <p className="text-white dark:text-slate-400">New York, EEUU</p>
+                    <p className="text-white dark:text-slate-400">Noapara, Barasat, North 24 Parganas</p>
+                    <p className="text-white dark:text-slate-400"> Kolkata, West Bengal</p>
                   </div>
                 </li>
                 <li className="flex">
@@ -104,8 +106,8 @@ const ContactSection = () => {
                   <div className="ml-4 mb-4">
                     <h3 className="mb-2 text-lg font-medium leading-6 text-white dark:text-white">Contact
                     </h3>
-                    <p className="text-white dark:text-slate-400">Mobile: +1 (123) 456-7890</p>
-                    <p className="text-white dark:text-slate-400">Mail: tailnext@gmail.com</p>
+                    <p className="text-white dark:text-slate-400">Mobile:(+91) 6297014029</p>
+                    <p className="text-white dark:text-slate-400">Mail: souravnandi1757@gmail.com</p>
                   </div>
                 </li>
                 <li className="flex">
@@ -172,6 +174,7 @@ const ContactSection = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 
