@@ -1,7 +1,7 @@
 "use client";
 import { toast } from "react-toastify";
 import { useState, useEffect, useRef } from "react";
-// import cookie from "js-cookie";
+import cookie from "js-cookie";
 import { useRouter } from "next/navigation";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -10,7 +10,7 @@ const Post = () => {
     const [posts, setPosts] = useState([]);
     const [selectedPost, setSelectedPost] = useState(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    // const token = cookie.get("cookie-1");
+    const token = cookie.get("cookie-1");
     const router = useRouter();
 
     useEffect(() => {
@@ -54,7 +54,7 @@ const Post = () => {
             }
         };
         fetchEmailPosts();
-    }, [senderEmail]);
+    }, [token, senderEmail]);
 
     const handlePostLink = async (id) => {
         router.push(`/blogs/${id}`);
@@ -186,7 +186,7 @@ const Post = () => {
     };
 
     return (
-        <div className="mt-20 ml-80 mr-20">
+        <div className="mt-20 ml-80 mr-20 text-white">
             {posts && posts.length > 0 ? (
                 posts.map((post, index) => <PostItem key={index} post={post} />)
             ) : (

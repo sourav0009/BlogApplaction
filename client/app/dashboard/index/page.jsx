@@ -1,15 +1,15 @@
 "use client";
-import { useState, useEffect,useCallback } from "react";
-// import cookie from "js-cookie";
+import { useState, useEffect, useCallback } from "react";
+import cookie from "js-cookie";
 import "react-toastify/dist/ReactToastify.css";
 
 const Inbox = () => {
   const [senderEmail, setSenderEmail] = useState("");
   const [, setAuthorName] = useState("");
   const [inboxes, setInboxes] = useState("");
-  // const token = cookie.get("cookie-1");
+  const token = cookie.get("cookie-1");
 
-  const fetchEmailInboxes = useCallback( async () => {
+  const fetchEmailInboxes = useCallback(async () => {
     try {
       const fetchedEmail = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/getuser`, {
         method: "POST",
@@ -47,7 +47,7 @@ const Inbox = () => {
     } catch (error) {
       console.log("failed to fetch your inboxes");
     }
-  },[senderEmail]);
+  }, [token, senderEmail]);
 
   useEffect(() => {
     fetchEmailInboxes();

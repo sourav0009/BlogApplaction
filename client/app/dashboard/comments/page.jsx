@@ -1,13 +1,13 @@
 "use client";
 import { useEffect, useState, useCallback } from "react";
-// import cookie from "js-cookie";
+import cookie from "js-cookie";
 import { useRouter } from "next/navigation";
 
 const Comment = () => {
     const [comments, setComments] = useState([]);
-    const [ setLoading] = useState(false);
+    const [, setLoading] = useState(false);
     const [authorEmail, setAuthorEmail] = useState("");
-    // const token = cookie.get("cookie-1");
+    const token = cookie.get("cookie-1");
     const router = useRouter();
 
     const validation = useCallback(async () => {
@@ -30,7 +30,7 @@ const Comment = () => {
         } catch (error) {
             console.error("Server error autologin failed", error);
         }
-    }, [router]);
+    }, [token, router]);
 
     const fetchEmail = useCallback(async () => {
         try {
@@ -47,7 +47,7 @@ const Comment = () => {
         } catch (error) {
             console.log("failed to fetch Email", error);
         }
-    }, []);
+    }, [token]);
 
     const fetchComments = useCallback(async () => {
         setLoading(true);
@@ -69,7 +69,7 @@ const Comment = () => {
         } catch (error) {
             console.error("Failed to fetch comments", error);
         }
-    }, [authorEmail, setLoading]);
+    }, [authorEmail]);
     useEffect(() => {
         validation();
         fetchEmail();

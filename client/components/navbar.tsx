@@ -85,7 +85,7 @@ const Navbar = () => {
             <nav id="navbar" className=" z-50 md:px-20 border-gray-200 bg-inherit fixed top-0 w-full ">
                 <div className="max-w-screen flex flex-wrap items-center justify-between mx-auto p-4">
                     <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse ">
-                        <Image className="rounded-full" height={50} width={50} src={logo} alt="logo" />
+                        <Image className="rounded-full"  height={50} width={50} src={logo} alt="logo" />
                         <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
                             BLOG COMMUNITY
                         </span>
